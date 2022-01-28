@@ -1,20 +1,34 @@
 import React from 'react';
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import styled from 'styled-components';
 
 import Header from './Header';
 import BloomHeader from './BloomHeader';
 import Login from './Login';
+import PrivateRoute from './PrivateRoute'
+import View from './View'
+import Logout from './Logout'
 
 const App = () => {
   return (
     <AppContainer>
-      <BloomHeader/>
-      <Header/>
+      <BloomHeader />
+      <Header />
+
+
       <RouteContainer>
         <Route exact path="/">
-          <Login/>
-        </Route>          
+          <Login />
+        </Route>
+
+        <Route exact path="/login">
+          <Redirect to="/" />
+          <Login />
+        </Route>
+
+        <PrivateRoute exact path="/view" component={View} />
+        <PrivateRoute exact path="/logout" component={Logout} />
+
       </RouteContainer>
     </AppContainer>
   )
